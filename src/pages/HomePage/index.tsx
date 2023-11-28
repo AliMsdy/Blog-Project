@@ -1,16 +1,17 @@
 import { useQuery } from "@apollo/client";
 import { Container, List, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import { GET_POSTS } from "../../graphql/queries";
+import { GET_POSTS_INFO } from "../../graphql/queries";
 //type
 import { AuthorType, PostType } from "../../types/model";
 //components
 import AuthorsComponent from "./AuthorsComponent";
 import CardComponent from "./CardComponent";
+import Loader from "../../Components/Loader/Loader";
 
 function HomePage() {
-  const { data, loading, error } = useQuery(GET_POSTS);
-  if (loading) return <h1 className="text-center">Loading....</h1>;
+  const { data, loading, error } = useQuery(GET_POSTS_INFO);
+  if (loading) return <Loader />;
   if (error) return <h1>{error.message}</h1>;
   return (
     <Container maxWidth="lg">

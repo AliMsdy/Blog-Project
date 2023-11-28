@@ -12,39 +12,59 @@ import {
 } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 
+import { Link } from "react-router-dom";
+
 //types
 import { PostType } from "../../types/model";
+
 function CardComponent(props: PostType) {
   const {
     title,
     coverPhoto: { url },
-    author: {
+    slug,
+    author,
+  } = props;
+
+  let name, authorPhoto, authorSlug;
+
+  if (author) {
+    ({
       name,
       avatar: { url: authorPhoto },
-    },
-    slug,
-  } = props;
+      slug: authorSlug,
+    } = author);
+  }
+
   return (
     <Grid xs={12} md={6} lg={4}>
       <Card
         className="rounded-lg shadow-lg flex flex-col"
-        sx={{ height: { xs: "auto", md: 450 } }}
+        sx={{ height: { xs: "auto", md: author ? 450 : 400 } }}
       >
-        <Box className="m-4 mr-8 flex items-center gap-x-6">
-          <Avatar sx={{ width: 42, height: 42 }} src={authorPhoto} />
-          <Typography>{name}</Typography>
-        </Box>
+        {author && (
+          <Box className="m-4 mr-8">
+            <Link
+              to={`/authors/${authorSlug}`}
+              className="flex items-center gap-x-6 no-underline text-inherit w-max"
+            >
+              <Avatar sx={{ width: 42, height: 42 }} src={authorPhoto} />
+              <Typography>{name}</Typography>
+            </Link>
+          </Box>
+        )}
         <CardActionArea>
-          <CardMedia
-            image={url}
-            component="img"
-            sx={{
-              height: { sx: 140, md: 160 },
-              maxWidth: { xs: "auto", sm: 600, md: "auto" },
-              mx: "auto",
-            }}
-            alt={slug}
-          />
+          <Link to={`/blogs/${slug}`}>
+            <CardMedia
+              image={url}
+              component="img"
+              sx={{
+                height: { sx: 140, md: 160 },
+                maxWidth: { xs: "auto", sm: 600, md: "auto" },
+                mx: "auto",
+              }}
+              alt={slug}
+            />
+          </Link>
         </CardActionArea>
         <CardContent>
           <Typography
@@ -62,9 +82,14 @@ function CardComponent(props: PostType) {
         <CardActions>
           <Button
             variant="outlined"
-            className="rounded-2xl px-6 w-full mx-6 my-3"
+            className="rounded-2xl p-0 w-full mx-6 my-3"
           >
-            مطالعه مقاله
+            <Link
+              className="no-underline py-1 w-full active:text-inherit"
+              to={`/blogs/${slug}`}
+            >
+              مطالعه مقاله
+            </Link>
           </Button>
         </CardActions>
       </Card>
