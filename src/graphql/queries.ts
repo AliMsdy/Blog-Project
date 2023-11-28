@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-const GET_POSTS = gql`
+const GET_POSTS_INFO = gql`
   query {
     posts {
       slug
@@ -10,6 +10,7 @@ const GET_POSTS = gql`
       id
       author {
         name
+        slug
         avatar {
           url
         }
@@ -19,6 +20,7 @@ const GET_POSTS = gql`
     authors {
       name
       id
+      slug
       avatar {
         url
       }
@@ -26,13 +28,55 @@ const GET_POSTS = gql`
   }
 `;
 
-const GET_USER = gql`
-  query getUser($id: ID!) {
-    user(id: $id) {
-      id
+const GET_AUTHOR_INFO = gql`
+  query getAuthor($slug: String!) {
+    author(where: { slug: $slug }) {
+      avatar {
+        url
+      }
       name
-      username
+      slug
+      description {
+        html
+      }
+      field
+      posts {
+        title
+        id
+        coverPhoto {
+          url
+        }
+        slug
+      }
     }
   }
 `;
-export { GET_POSTS, GET_USER };
+
+const GET_POST_INFO = gql`
+  query getPostInfo($slug:String!) {
+    post(where: { slug: $slug }) {
+      author {
+        avatar {
+          url
+        }
+        name
+        field
+      }
+      content {
+        html
+      }
+      coverPhoto {
+        url
+      }
+      title
+      comments {
+        name
+        text
+        createdAt
+        id
+      }
+    }
+  }
+`;
+
+export { GET_AUTHOR_INFO, GET_POSTS_INFO,GET_POST_INFO };

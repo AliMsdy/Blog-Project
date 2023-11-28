@@ -11,8 +11,17 @@ type PostType = {
 type AuthorType = {
   name: string;
   id: number;
+  slug:string;
   avatar: {
     url: string;
   };
 };
-export type { PostType,AuthorType };
+
+type CommentType={
+  name:string;
+  text:string;
+  id:string;
+  createdAt: string;
+
+}
+export type { PostType,AuthorType,CommentType };

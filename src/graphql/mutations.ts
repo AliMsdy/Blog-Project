@@ -1,19 +1,23 @@
 import { gql } from "@apollo/client";
-const CREATE_USER = gql`
-  mutation createUser($name: String!, $username: String!, $email: String!) {
-    createUser(input: { name: $name, username: $username, email: $email }) {
+
+const SEND_COMMENT = gql`
+  mutation createComment(
+    $name: String!
+    $text: String!
+    $email: String!
+    $slug: String!
+  ) {
+    createComment(
+      data: {
+        name: $name
+        text: $text
+        email: $email
+        post: { connect: { slug: $slug } }
+      }
+    ) {
       id
-      name
-      username
-      email
     }
   }
 `;
 
-const DELETE_USER = gql`
-mutation deleteUser($id:ID!){
-    deleteUser(id:$id)
-}
-`
-
-export { CREATE_USER,DELETE_USER };
+export { SEND_COMMENT };
