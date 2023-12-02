@@ -10,7 +10,7 @@ import {
 import { onError } from "@apollo/client/link/error";
 
 const httpLink = createHttpLink({
-  uri: "https://api-us-east-1-shared-usea1-02.hygraph.com/v2/clp2oum8q06te01t6h23saxez/master",
+  uri: import.meta.env.VITE_GRAPHCMS_URI,
 });
 
 function Apollo({ children }: { children: React.ReactNode }) {
