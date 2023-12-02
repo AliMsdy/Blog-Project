@@ -10,14 +10,20 @@ import * as yup from "yup";
 import { SEND_COMMENT } from "../../graphql/mutations";
 
 const InputArray = [
-  { name: "name", props: { label: "نام کاربری" , } },
-  { name: "email", props: { label: "ایمیل",sx:{direction:"ltr"} } },
+  { name: "name", props: { label: "نام کاربری" } },
+  {
+    name: "email",
+    props: { label: "ایمیل", sx: { direction: `/* @noflip */ ltr` } },
+  },
   { name: "text", props: { label: "متن کامنت", multiline: true, minRows: 4 } },
 ];
 
 const schema = yup
   .object({
-    name: yup.string().required("**فیلد را تکمیل کنید"),
+    name: yup
+      .string()
+      .required("**فیلد را تکمیل کنید")
+      .max(30, "نام وارد شده طولانی میباشد"),
     email: yup
       .string()
       .email("فرمت ایمیل را درست وارد کنید")
@@ -63,7 +69,6 @@ function SendCommentForm({ slug }: { slug: string }) {
       boxShadow="rgba(0,0,0,0.3) 0px 4px 18px"
       padding={3}
       borderRadius={4}
-      className="rtl"
     >
       <Typography color="primary" mb={2} variant="h5">
         ارسال کامنت
@@ -79,11 +84,7 @@ function SendCommentForm({ slug }: { slug: string }) {
               name={name as keyof TFormInputs}
               control={control}
               render={({ field }) => (
-                <TextField
-                  spellCheck="false"
-                  {...props}
-                  {...field}
-                />
+                <TextField spellCheck="false" {...props} {...field} />
               )}
             />
             <ErrorMessage
