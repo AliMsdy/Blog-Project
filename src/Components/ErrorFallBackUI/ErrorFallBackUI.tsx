@@ -22,7 +22,7 @@ function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
           </DialogContent>
           <DialogActions className="w-[80%]">
             <Button
-              sx={{ width: "100%",mb:2 }}
+              sx={{ width: "100%", mb: 2 }}
               variant="outlined"
               color="inherit"
               onClick={resetErrorBoundary}

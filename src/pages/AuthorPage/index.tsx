@@ -12,11 +12,10 @@ import { PostType } from "../../types/model";
 
 function AuthorPage() {
   const { slug } = useParams();
-  const { data, loading, error } = useQuery(GET_AUTHOR_INFO, {
+  const { data, loading } = useQuery(GET_AUTHOR_INFO, {
     variables: { slug },
   });
   if (loading) return <Loader />;
-  if (error) return <h1>Error: {error.message}</h1>;
   const {
     avatar: { url },
     description: { html },
@@ -24,6 +23,7 @@ function AuthorPage() {
     name,
     posts,
   } = data.author;
+  
   return (
     <Container maxWidth="lg">
       <Stack mt={4} paddingX={3}>

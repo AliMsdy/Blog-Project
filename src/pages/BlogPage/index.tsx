@@ -21,12 +21,10 @@ import { CommentType } from "../../types/model";
 function BlogPage() {
   const { slug } = useParams();
   const navigate = useNavigate();
-  const { data, error, loading } = useQuery(GET_POST_INFO, {
+  const { data, loading } = useQuery(GET_POST_INFO, {
     variables: { slug },
   });
   if (loading) return <Loader />;
-  if (error) return <h1>Error: {error.message}</h1>;
-  // console.log(data);
   const {
     author: {
       name,

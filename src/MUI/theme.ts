@@ -1,4 +1,7 @@
 import { createTheme } from "@mui/material/styles";
+import { prefixer } from 'stylis';
+import rtlPlugin from 'stylis-plugin-rtl';
+import createCache from '@emotion/cache';
 const rootElement = document.getElementById("root");
 const theme = createTheme({
   typography: {
@@ -32,4 +35,11 @@ const theme = createTheme({
     },
   },
 });
+
+const cacheRtl = createCache({
+  key: 'muirtl',
+  stylisPlugins: [prefixer, rtlPlugin],
+});
+
+export {cacheRtl}
 export default theme;

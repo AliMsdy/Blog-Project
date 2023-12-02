@@ -10,9 +10,8 @@ import CardComponent from "./CardComponent";
 import Loader from "../../Components/Loader/Loader";
 
 function HomePage() {
-  const { data, loading, error } = useQuery(GET_POSTS_INFO);
+  const { data, loading } = useQuery(GET_POSTS_INFO);
   if (loading) return <Loader />;
-  if (error) return <h1>{error.message}</h1>;
   return (
     <Container maxWidth="lg">
       <Grid container className="mt-6" spacing={3} paddingX={3}>
